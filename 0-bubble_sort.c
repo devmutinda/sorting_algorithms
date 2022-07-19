@@ -7,14 +7,14 @@
  */
 void bubble_sort(int *array, size_t size)
 {
-	size_t i, k, hld = size;
+	size_t i, k/*, hld = size*/;
 	int temp;
 
 	if (array)
 	{
-	for (i = 0; i < hld; i++)
+	for (i = 0; i < size; i++)
 	{
-		for (k = 0; k < hld - 1; k++)
+		for (k = 0; k < size - 1; k++)
 		{
 			if (array[k] > array[k + 1])
 			{
@@ -24,7 +24,7 @@ void bubble_sort(int *array, size_t size)
 				print_array(array, size);
 			}
 		}
-		hld--;
+		/*hld--;*/
 	}
 	}
 }
