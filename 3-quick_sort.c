@@ -1,62 +1,53 @@
 #include "sort.h"
 /**
- * partition - partitions and swaps
+ * partition - partitions array
  * @array: the array
- * @low: left index
- * @high: right index
- * Return: size_t
+ * @l: left index
+ * @r: right index
+ * @n: size of array
+ * Return: int
  */
-int partition(int *array, int low, int high)
+int partition(int *array, int l, int r, size_t n)
 {
-	int i, j, pivot, tmp;
-	static int size, k;
+	int temp, p;
 
-	if (k == 0)
+	p = r;
+
+	while (l < r)
 	{
-		size = high + 1;
-		k++;
-	}
-	pivot = array[high];
-	i = low;
-	for (j = low; j < high; j++)
-	{
-		if (array[j] <= pivot)
+		r = p - 1;
+		if (array[l] > array[p])
 		{
-			if (i != j)
-			{
-				tmp = array[i];
-				array[i] = array[j];
-				array[j] = tmp;
-				print_array(array, size);
-			}
-			i++;
+			temp = array[l];
+			array[l] = array[r];
+			array[r] = array[p];
+			array[p] = temp;
+			p--;
 		}
+		else
+			l++;
 	}
-	if (i != high)
-	{
-		tmp = array[i];
-		array[i] = array[high];
-		array[high] = tmp;
-		print_array(array, size);
-	}
-	return (i);
+	print_array(array, n);
+
+	return (p);
 }
 /**
- * quick_search - sorts array
- * @array: the array
- * @left: left index
- * @right: right index
+ * sort_array - recursively sorts array
+ * @array: integer array
+ * @l: left index
+ * @r: right index
+ * @size: size of array
  * Return: void
  */
-void quick_search(int *array, int left, int right)
+void sort_array(int *array, int l, int r, size_t size)
 {
 	int p;
 
-	if (left < right)
+	if (l < r)
 	{
-		p = partition(array, left, right);
-		quick_search(array, left, p - 1);
-		quick_search(array, p + 1, right);
+		p = partition(array, l, r, size);
+		sort_array(array, l, p - 1, size);
+		sort_array(array, p + 1, r, size);
 	}
 }
 /**
@@ -68,5 +59,5 @@ void quick_search(int *array, int left, int right)
 void quick_sort(int *array, size_t size)
 {
 	if (array)
-		quick_search(array, 0, size - 1);
+		sort_array(array, 0, size - 1, size);
 }
