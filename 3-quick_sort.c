@@ -61,6 +61,5 @@ void quick_sort(int *array, size_t size)
 	if (array)
 	{
 		sort_array(array, 0, size - 1, size);
-		print_array(array, size);
 	}
 }
