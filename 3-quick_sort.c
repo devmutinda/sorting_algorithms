@@ -9,27 +9,27 @@
  */
 int partition(int *array, int l, int r, size_t n)
 {
-	int temp, p;
+	int temp, pivot, i, j;
 
-	p = r;
+	pivot = array[r];
+	i = l - 1;
 
-	while (l < r)
+	for (j = l; j <= r - 1; j++)
 	{
-		r = p - 1;
-		if (array[l] > array[p])
+		if (pivot > array[j])
 		{
-			temp = array[l];
-			array[l] = array[r];
-			array[r] = array[p];
-			array[p] = temp;
-			p--;
+			i++;
+			temp = array[i];
+			array[i] = array[j];
+			array[j] = temp;
 		}
-		else
-			l++;
 	}
 	print_array(array, n);
+	temp = array[i + 1];
+	array[i + 1] = pivot;
+	array[r] = temp;
 
-	return (p);
+	return (i + 1);
 }
 /**
  * sort_array - recursively sorts array
@@ -59,5 +59,8 @@ void sort_array(int *array, int l, int r, size_t size)
 void quick_sort(int *array, size_t size)
 {
 	if (array)
+	{
 		sort_array(array, 0, size - 1, size);
+		print_array(array, size);
+	}
 }
